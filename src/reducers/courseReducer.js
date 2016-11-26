@@ -1,7 +1,8 @@
 import * as types from '../actions/actionTypes';
+import initialState from './initialState';
 
 
-export default(state = [], action) =>
+export default(state = initialState.courses, action) =>
 {
   switch (action.type) {
     case types.LOAD_COURSES_SUCCESS:
