@@ -17,12 +17,10 @@ class ManageCoursePage extends React.Component {
 
   render() {
     return (
-      <div>
         <CourseForm
           allAuthors={[]}
           errors={this.state.errors}
           course={this.state.course}/>
-      </div>
     );
   }
 }
