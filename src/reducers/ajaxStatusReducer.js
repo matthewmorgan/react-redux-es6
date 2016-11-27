@@ -9,7 +9,7 @@ export default function ajaxStatusReducer(state = initialState.ajaxCallsInProgre
   return action.type
   === types.BEGIN_AJAX_CALL
     ? state + 1
-    : actionTypeEndsInSuccess(action.type)
+    : actionTypeEndsInSuccess(action.type) || action.type === types.AJAX_CALL_ERROR
       ? state -1
       : state;
 }
