@@ -44,5 +44,4 @@ describe('CourseReducer', () => {
     expect(newState.find(el => el.id==='A').title).toEqual('A');
     expect(newState.find(el => el.id==='B').title).toEqual('New Title');
   });
-
 });
