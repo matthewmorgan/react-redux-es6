@@ -36,8 +36,8 @@ export class ManageAuthorPage extends React.Component {
     let formIsValid = true;
     let errors = {};
 
-    if (this.state.author.name().length < 5){
-      errors.name = 'Name must be at least 5 characters.';
+    if (this.state.author.firstName.length < 5){
+      errors.firstName = 'Name must be at least 5 characters.';
       formIsValid = false;
     }
     this.setState({errors:errors});
@@ -97,7 +97,8 @@ function mapStateToProps(state, ownProps) {
   let author = {
     id:        '',
     watchHref: '',
-    name:     ''
+    firstName: '',
+    lastName: ''
   };
 
   const authorId = ownProps.params.id;
@@ -107,7 +108,8 @@ function mapStateToProps(state, ownProps) {
   }
 
   return {
-    author: author
+    author: author,
+    authors: state.authors
   };
 }
 

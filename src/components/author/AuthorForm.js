@@ -6,11 +6,18 @@ const AuthorForm = ({author, onSave, onChange, saving, errors}) => {
     <form>
       <h1>Manage Author</h1>
       <TextInput
-        name="name"
-        label="Name"
-        value={author.name}
+        name="firstName"
+        label="First Name"
+        value={author.firstName}
         onChange={onChange}
-        error={errors.name}/>
+        error={errors.firstName}/>
+
+      <TextInput
+        name="lastName"
+        label="Last Name"
+        value={author.lastName}
+        onChange={onChange}
+        error={errors.lastName}/>
 
       <input
         type="submit"
