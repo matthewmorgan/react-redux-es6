@@ -16,7 +16,7 @@ function setup(saving) {
   return shallow(<CourseForm {...props} />);
 }
 
-describe('CourseForm via Enzyme', () => {
+describe('AuthorForm via Enzyme', () => {
   it('renders forms and h1', () => {
     const wrapper = setup(false);
     expect(wrapper.find('form').length).toBe(1);
