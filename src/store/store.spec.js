@@ -20,5 +20,5 @@ describe('Store', () => {
     };
 
     expect(actual).toEqual(expected);
-  })
+  });
 });
