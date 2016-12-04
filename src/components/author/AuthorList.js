@@ -1,12 +1,9 @@
 import React, {PropTypes} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
 
-import * as authorActions from '../../actions/authorActions';
 import AuthorListRow from './AuthorListRow';
 
 
-const AuthorList = ({authors}) => {
+const AuthorList = ({authors, courses, onDeleteAuthor}) => {
   return (
     <table className="table">
       <thead>
@@ -17,7 +14,7 @@ const AuthorList = ({authors}) => {
       </thead>
       <tbody>
       {authors.map(author =>
-        <AuthorListRow key={author.id} author={author}/>
+        <AuthorListRow key={author.id} courses={courses} author={author} onDeleteAuthor={onDeleteAuthor}/>
       )}
       </tbody>
     </table>
@@ -25,19 +22,10 @@ const AuthorList = ({authors}) => {
 };
 
 AuthorList.propTypes = {
-  authors: PropTypes.array.isRequired
+  authors: PropTypes.array.isRequired,
+  courses: PropTypes.array.isRequired,
+  onDeleteAuthor: PropTypes.func.isRequired
 };
 
-function mapStateToProps(state, ownProps) {
-  return {
-    authors:  state.authors
-  };
-}
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(authorActions, dispatch)
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(AuthorList);
+export default AuthorList;
