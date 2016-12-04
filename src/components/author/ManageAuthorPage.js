@@ -11,17 +11,21 @@ export class ManageAuthorPage extends React.Component {
     super(props, context);
 
     this.state = {
-      author: Object.assign({}, this.props.author),
-      errors: {},
-      saving: false
+      author:  Object.assign({}, this.props.author),
+      errors:  {},
+      saving:  false
     };
     this.updateAuthorState = this.updateAuthorState.bind(this);
     this.saveAuthor = this.saveAuthor.bind(this);
   }
 
-  componentWillReceiveProps(nextProps){
-    if (this.props.author.id != nextProps.author.id){
-      this.setState({author: Object.assign({}, nextProps.author)});
+  componentWillReceiveProps(nextProps) {
+    if (this.props.author.id != nextProps.author.id) {
+      this.setState(
+        {
+          author:  Object.assign({}, nextProps.author)
+        }
+      );
     }
   }
 
@@ -29,39 +33,44 @@ export class ManageAuthorPage extends React.Component {
     const field = event.target.name;
     let author = this.state.author;
     author[field] = event.target.value;
-    return this.setState({author: author});
+    return this.setState(
+      {
+        author: author
+      }
+      );
   }
 
   authorFormIsValid() {
     let formIsValid = true;
     let errors = {};
 
-    if (this.state.author.firstName.length < 5){
+    if (this.state.author.firstName.length < 5) {
       errors.firstName = 'Name must be at least 5 characters.';
       formIsValid = false;
     }
-    this.setState({errors:errors});
+    this.setState({errors: errors});
     return formIsValid;
   }
 
+
   saveAuthor(event) {
     event.preventDefault();
-    if (!this.authorFormIsValid()){
+    if (!this.authorFormIsValid()) {
       return;
     }
     this.setState({saving: true});
     this.props.actions
       .saveAuthor(this.state.author)
-      .then(() => this.redirect())
+      .then(() => this.redirect('Author saved'))
       .catch((error) => {
         toastr.error(error);
         this.setState({saving: false});
       });
   }
 
-  redirect(){
+  redirect(message) {
     this.setState({saving: false});
-    toastr.success('Author saved');
+    toastr.success(message);
     this.context.router.push('/authors');
   }
 
@@ -88,7 +97,8 @@ ManageAuthorPage.contextTypes = {
   router: PropTypes.object
 };
 
-function getAuthorById(authors, authorId){
+
+function getAuthorById(authors, authorId) {
   const author = authors.filter(a => a.id === authorId);
   return author.length ? author[0] : null;
 }
@@ -96,19 +106,19 @@ function getAuthorById(authors, authorId){
 function mapStateToProps(state, ownProps) {
   let author = {
     id:        '',
-    watchHref: '',
     firstName: '',
-    lastName: ''
+    lastName:  ''
   };
 
   const authorId = ownProps.params.id;
 
-  if (state.authors.length && authorId){
+  if (state.authors.length && authorId) {
     author = getAuthorById(state.authors, authorId);
   }
 
+
   return {
-    author: author,
+    author:  author,
     authors: state.authors
   };
 }

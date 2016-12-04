@@ -52,7 +52,7 @@ export class ManageCoursePage extends React.Component {
     }
     this.setState({saving: true});
     this.props.actions
-      .saveAuthor(this.state.course)
+      .saveCourse(this.state.course)
       .then(() => this.redirect())
       .catch((error) => {
         toastr.error(error);

@@ -1,5 +1,10 @@
 import React, {PropTypes} from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+
+import * as authorActions from '../../actions/authorActions';
 import AuthorListRow from './AuthorListRow';
+
 
 const AuthorList = ({authors}) => {
   return (
@@ -23,4 +28,16 @@ AuthorList.propTypes = {
   authors: PropTypes.array.isRequired
 };
 
-export default AuthorList;
+function mapStateToProps(state, ownProps) {
+  return {
+    authors:  state.authors
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(authorActions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AuthorList);
