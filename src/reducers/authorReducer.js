@@ -23,10 +23,7 @@ export default(state = initialState.authors, action) =>
       ];
 
     case types.DELETE_AUTHOR_SUCCESS:
-      console.log('In reducer, author is', action.author);
-      console.log('In reducer, action is', action);
       return [
-        // filter out THIS author from our copy of the state, then add our updated author in
         ...state.filter(author => author.id !== action.author.id)
       ];
 

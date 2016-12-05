@@ -91,14 +91,18 @@ class CourseApi {
     });
   }
 
-  static deleteCourse(courseId) {
+  static deleteCourse(course) {
+    const courseId = course.id;
+    console.log('courseId in API: ', courseId);
+    courses.forEach(course => console.log(course.title));
+
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        const indexOfCourseToDelete = courses.findIndex(course => {
-          course.courseId == courseId;
-        });
-        courses.splice(indexOfCourseToDelete, 1);
-        resolve();
+        const indexOfCourseToDelete = courses.findIndex(c => c.id === courseId);
+        // courses.splice(indexOfCourseToDelete, 1);
+        courses.forEach(course => console.log(course.title));
+
+        resolve(course);
       }, delay);
     });
   }

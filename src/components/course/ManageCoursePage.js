@@ -18,6 +18,7 @@ export class ManageCoursePage extends React.Component {
     };
     this.updateCourseState = this.updateCourseState.bind(this);
     this.saveCourse = this.saveCourse.bind(this);
+    this.deleteCourse = this.deleteCourse.bind(this);
   }
 
   componentWillReceiveProps(nextProps){
@@ -45,6 +46,16 @@ export class ManageCoursePage extends React.Component {
     return formIsValid;
   }
 
+  deleteCourse(course) {
+    console.log('deleting ', course);
+    this.props.actions
+      .deleteCourse(course)
+      .then(() => this.redirect('Course deleted'))
+      .catch((error) => {
+        toastr.error(error);
+      });
+  }
+
   saveCourse(event) {
     event.preventDefault();
     if (!this.courseFormIsValid()){
@@ -53,16 +64,16 @@ export class ManageCoursePage extends React.Component {
     this.setState({saving: true});
     this.props.actions
       .saveCourse(this.state.course)
-      .then(() => this.redirect())
+      .then(() => this.redirect('Course saved'))
       .catch((error) => {
         toastr.error(error);
         this.setState({saving: false});
       });
   }
 
-  redirect(){
+  redirect(message){
     this.setState({saving: false});
-    toastr.success('Course saved');
+    toastr.success(message);
     this.context.router.push('/courses');
   }
 
@@ -72,6 +83,7 @@ export class ManageCoursePage extends React.Component {
           allAuthors={this.props.authors}
           onChange={this.updateCourseState}
           onSave={this.saveCourse}
+          onDelete={this.deleteCourse}
           errors={this.state.errors}
           course={this.state.course}
           saving={this.state.saving}/>
